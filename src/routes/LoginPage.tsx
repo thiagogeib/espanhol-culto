@@ -2,6 +2,16 @@ import { useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 
+function translateAuthError(message: string): string {
+  if (message.includes("Invalid login credentials")) {
+    return "E-mail ou senha incorretos.";
+  }
+  if (message.includes("Email not confirmed")) {
+    return "Você precisa confirmar seu e-mail antes de entrar — veja o link que enviamos pra sua caixa de entrada.";
+  }
+  return message;
+}
+
 export function LoginPage() {
   const { signIn } = useAuth();
   const navigate = useNavigate();
@@ -17,7 +27,7 @@ export function LoginPage() {
     const message = await signIn(email, password);
     setIsSubmitting(false);
     if (message) {
-      setError("E-mail ou senha incorretos.");
+      setError(translateAuthError(message));
       return;
     }
     navigate("/", { replace: true });

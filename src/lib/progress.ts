@@ -76,3 +76,12 @@ export function loadLastVisited(): LastVisited | null {
     return null;
   }
 }
+
+export function clearProgress(): void {
+  try {
+    localStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem(LAST_VISITED_KEY);
+  } catch {
+    // quota/acesso indisponível — nada a fazer
+  }
+}

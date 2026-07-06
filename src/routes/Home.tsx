@@ -3,7 +3,7 @@ import { ProgressBar } from "../components/ProgressBar";
 import { curriculumOrder, TOTAL_SECTIONS_FUNDAMENTALS } from "../data/curriculum";
 import { TOTAL_SECTIONS_PER_SONG } from "../data/songs";
 import { useProgress } from "../hooks/useProgress";
-import { loadLastVisited } from "../lib/progress";
+import { clearProgress, loadLastVisited } from "../lib/progress";
 
 const SONG_MODULE_COUNT = curriculumOrder.filter(
   (entry) => entry.tipo === "musica",
@@ -40,6 +40,15 @@ export function Home() {
     TOTAL_SECTIONS_OVERALL > 0
       ? Math.round((sectionsDone / TOTAL_SECTIONS_OVERALL) * 100)
       : 0;
+
+  function handleResetProgress() {
+    const confirmed = window.confirm(
+      "Isso vai apagar todo o progresso salvo neste navegador. Tem certeza?",
+    );
+    if (!confirmed) return;
+    clearProgress();
+    window.location.reload();
+  }
 
   return (
     <div className="home">
@@ -95,6 +104,10 @@ export function Home() {
           );
         })}
       </section>
+
+      <button type="button" className="reset-progress-btn" onClick={handleResetProgress}>
+        Reiniciar progresso
+      </button>
     </div>
   );
 }

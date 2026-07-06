@@ -121,12 +121,19 @@ export interface CurriculumEntry {
   ordem: number;
   tipo: "fundamentos" | "musica";
   titulo: string;
+  icone: string;
 }
 
 export const curriculumOrder: CurriculumEntry[] = [
-  { moduleId: "fundamentos", ordem: 0, tipo: "fundamentos", titulo: "Fundamentos de pronúncia" },
-  { moduleId: "cancion-del-exilio", ordem: 1, tipo: "musica", titulo: "Canción del Exilio" },
-  { moduleId: "suenos", ordem: 2, tipo: "musica", titulo: "Sueños" },
-  { moduleId: "poder-de-la-sangre", ordem: 3, tipo: "musica", titulo: "Poder de la Sangre" },
-  { moduleId: "marcas", ordem: 4, tipo: "musica", titulo: "Marcas" },
+  {
+    moduleId: "fundamentos",
+    ordem: 0,
+    tipo: "fundamentos",
+    titulo: "Fundamentos de pronúncia",
+    icone: "🗣️",
+  },
+  { moduleId: "cancion-del-exilio", ordem: 1, tipo: "musica", titulo: "Canción del Exilio", icone: "🏛️" },
+  { moduleId: "suenos", ordem: 2, tipo: "musica", titulo: "Sueños", icone: "😴" },
+  { moduleId: "poder-de-la-sangre", ordem: 3, tipo: "musica", titulo: "Poder de la Sangre", icone: "🩸" },
+  { moduleId: "marcas", ordem: 4, tipo: "musica", titulo: "Marcas", icone: "💔" },
 ];

@@ -45,6 +45,7 @@ export interface Song {
   ordem: number;
   titulo: string;
   artista: string;
+  icone: string;
   resumo: string;
   vocabulario: VocabItem[];
   linhas: LyricLine[];
@@ -58,8 +59,9 @@ export const songs: Song[] = [
     ordem: 1,
     titulo: "Canción del Exilio",
     artista: "Débora e Léia / Ereni",
+    icone: "🏛️",
     resumo:
-      "Ponto de partida ideal: a letra em espanhol acompanha, linha a linha, a tradução em português — perfeita para ganhar confiança com os cognatos entre as duas línguas.",
+      "A música mais fácil pra começar: a letra em espanhol vem lado a lado com a tradução, então você já reconhece quase tudo. Ótima pra pegar confiança logo de cara.",
     vocabulario: [
       { es: "hijos", pt: "filhos" },
       { es: "cautiverio", pt: "cativeiro" },
@@ -170,8 +172,9 @@ export const songs: Song[] = [
     ordem: 2,
     titulo: "Sueños",
     artista: "Débora Miranda",
+    icone: "😴",
     resumo:
-      "Narrativa pessoal em primeira pessoa — ótima para comparar pretérito (fatos pontuais) com gerúndio (ações simultâneas) e treinar concordância no feminino.",
+      "Uma história pessoal de fé, contada em primeira pessoa — vai te ajudar a ganhar confiança pra contar suas próprias histórias em espanhol também.",
     vocabulario: [
       { es: "sueños", pt: "sonhos", nota: "o 'ñ' soa como 'nh'" },
       { es: "sobrevinieron", pt: "sobrevieram", nota: "pretérito de sobrevenir" },
@@ -273,8 +276,9 @@ export const songs: Song[] = [
     ordem: 3,
     titulo: "Poder de la Sangre",
     artista: "Cristina Santana",
+    icone: "🩸",
     resumo:
-      "Refrão bem repetitivo — ótimo para fixar presente do indicativo (3ª pessoa) e uma narrativa em pretérito sobre a batalha no céu.",
+      "O refrão se repete bastante, o que torna essa a música mais fácil de gravar de cor — ótima pra ganhar confiança cantando um trecho inteiro sem travar.",
     vocabulario: [
       { es: "sangre", pt: "sangue" },
       { es: "incomparable", pt: "incomparável" },
@@ -405,8 +409,9 @@ export const songs: Song[] = [
     ordem: 4,
     titulo: "Marcas",
     artista: "Débora y Ereni",
+    icone: "💔",
     resumo:
-      "Módulo mais avançado: vocabulário mais abstrato, pronomes reflexivos/recíprocos grudados no infinitivo, e uma seção falada (declamación) ótima para treinar fluência de leitura.",
+      "O módulo mais desafiador do curso — mas também o mais emocionante de cantar depois que você pega o jeito. Vale a pena chegar até aqui.",
     vocabulario: [
       { es: "mentira", pt: "mentira" },
       { es: "falsedad", pt: "falsidade" },

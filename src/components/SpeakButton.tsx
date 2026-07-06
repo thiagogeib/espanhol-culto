@@ -1,39 +1,30 @@
 import { useState } from "react";
-import { speak, type SpeechRate } from "../lib/useTTS";
+import { speak } from "../lib/useTTS";
+import { useSpeechRate } from "./SpeechRateToggle";
 
 interface SpeakButtonProps {
   text: string;
 }
 
 export function SpeakButton({ text }: SpeakButtonProps) {
-  const [loadingRate, setLoadingRate] = useState<SpeechRate | null>(null);
+  const rate = useSpeechRate();
+  const [isLoading, setIsLoading] = useState(false);
 
-  async function handleSpeak(rate: SpeechRate) {
-    setLoadingRate(rate);
+  async function handleSpeak() {
+    setIsLoading(true);
     await speak(text, rate);
-    setLoadingRate(null);
+    setIsLoading(false);
   }
 
   return (
-    <div className="speak-buttons">
-      <button
-        type="button"
-        className="speak-btn"
-        onClick={() => handleSpeak("normal")}
-        disabled={loadingRate !== null}
-        aria-label={`Ouvir "${text}" em ritmo normal`}
-      >
-        {loadingRate === "normal" ? "…" : "▶"}
-      </button>
-      <button
-        type="button"
-        className="speak-btn speak-btn--lento"
-        onClick={() => handleSpeak("lento")}
-        disabled={loadingRate !== null}
-        aria-label={`Ouvir "${text}" devagar`}
-      >
-        {loadingRate === "lento" ? "…" : "▶ lento"}
-      </button>
-    </div>
+    <button
+      type="button"
+      className={`speak-btn${isLoading ? " speak-btn--loading" : ""}`}
+      onClick={() => void handleSpeak()}
+      disabled={isLoading}
+      aria-label={rate === "lento" ? `Ouvir "${text}" devagar` : `Ouvir "${text}"`}
+    >
+      {isLoading ? <span className="speak-btn__spinner" aria-hidden="true" /> : "▶"}
+    </button>
   );
 }

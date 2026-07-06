@@ -127,6 +127,31 @@ a {
   color: var(--color-text-muted);
 }
 
+.continue-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 20px;
+  padding: 16px;
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  color: white;
+  text-decoration: none;
+  box-shadow: var(--shadow-card);
+}
+
+.continue-card__label {
+  font-size: 12.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  opacity: 0.85;
+}
+
+.continue-card__titulo {
+  font-size: 18px;
+  font-weight: 700;
+}
+
 .home__modules {
   margin-top: 24px;
   display: flex;
@@ -135,6 +160,7 @@ a {
 }
 
 .module-card {
+  position: relative;
   display: block;
   padding: 16px;
   background: var(--color-surface);
@@ -142,6 +168,23 @@ a {
   border-radius: var(--radius);
   text-decoration: none;
   box-shadow: var(--shadow-card);
+}
+
+.module-card--recomendado {
+  border-color: var(--color-primary);
+  border-width: 2px;
+}
+
+.module-card__badge {
+  position: absolute;
+  top: -10px;
+  right: 14px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--color-primary);
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
 }
 
 .module-card__ordem {
@@ -239,6 +282,53 @@ a {
   color: white;
 }
 
+/* Prev/next guided navigation */
+.module-nav {
+  margin-top: 28px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.module-nav__btn {
+  padding: 12px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+
+.module-nav__btn--primary {
+  margin-left: auto;
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white;
+}
+
+.module-section__result {
+  margin-bottom: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.practice-again-btn {
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--color-accent);
+  background: var(--color-surface);
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
 /* Vocab cards */
 .vocab-grid {
   display: grid;
@@ -279,26 +369,61 @@ a {
   font-style: italic;
 }
 
-/* Speak buttons */
-.speak-buttons {
+/* Speech rate toggle (shared per section) */
+.speech-rate-toggle {
   display: flex;
-  gap: 4px;
-  flex-shrink: 0;
+  gap: 8px;
+  margin-bottom: 16px;
 }
 
+.speech-rate-toggle__btn {
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.speech-rate-toggle__btn--active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: white;
+}
+
+/* Speak button */
 .speak-btn {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border: 1px solid var(--color-border);
   background: var(--color-bg);
   color: var(--color-primary-dark);
   border-radius: 999px;
-  padding: 4px 10px;
-  font-size: 13px;
-  font-weight: 600;
-  white-space: nowrap;
+  font-size: 15px;
 }
 
 .speak-btn:disabled {
-  opacity: 0.6;
+  opacity: 0.7;
+}
+
+.speak-btn__spinner {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid color-mix(in srgb, var(--color-primary-dark) 30%, transparent);
+  border-top-color: var(--color-primary-dark);
+  animation: speak-spin 0.7s linear infinite;
+}
+
+@keyframes speak-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Lyrics */
@@ -480,6 +605,13 @@ a {
   color: var(--color-text-muted);
 }
 
+.karaoke__progress,
+.karaoke__hint {
+  font-size: 13.5px;
+  color: var(--color-text-muted);
+  margin-bottom: 10px;
+}
+
 .karaoke__lines {
   display: flex;
   flex-direction: column;
@@ -487,9 +619,19 @@ a {
 }
 
 .karaoke__line {
+  display: block;
+  width: 100%;
+  text-align: left;
   padding: 10px 12px;
   border-radius: 10px;
   border: 1px solid transparent;
+  background: transparent;
+  font: inherit;
+  color: inherit;
+}
+
+.karaoke__line:disabled {
+  cursor: default;
 }
 
 .karaoke__line--active {
@@ -498,10 +640,12 @@ a {
 }
 
 .karaoke__es {
+  display: block;
   font-weight: 600;
 }
 
 .karaoke__pt {
+  display: block;
   color: var(--color-text-muted);
   font-size: 14px;
 }

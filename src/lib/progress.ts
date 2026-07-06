@@ -52,3 +52,27 @@ export function computeModulePercent(
   if (totalSections === 0) return 0;
   return Math.round((done / totalSections) * 100);
 }
+
+export interface LastVisited {
+  moduleId: string;
+  section?: SectionKey;
+}
+
+const LAST_VISITED_KEY = "espanhol-culto:last-visited";
+
+export function saveLastVisited(entry: LastVisited): void {
+  try {
+    localStorage.setItem(LAST_VISITED_KEY, JSON.stringify(entry));
+  } catch {
+    // quota indisponível — ignora, não é crítico
+  }
+}
+
+export function loadLastVisited(): LastVisited | null {
+  try {
+    const raw = localStorage.getItem(LAST_VISITED_KEY);
+    return raw ? (JSON.parse(raw) as LastVisited) : null;
+  } catch {
+    return null;
+  }
+}

@@ -1,3 +1,5 @@
+import { supabase } from "./supabase";
+
 export type SectionKey =
   | "vocabulario"
   | "letra"
@@ -8,37 +10,49 @@ export type SectionKey =
 export type ModuleProgress = Partial<Record<SectionKey, boolean>>;
 export type ProgressState = Record<string, ModuleProgress>;
 
-const STORAGE_KEY = "espanhol-culto:progress";
-
-export function loadProgress(): ProgressState {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? (JSON.parse(raw) as ProgressState) : {};
-  } catch {
-    return {};
-  }
+interface ProgressRow {
+  module_id: string;
+  progress: ModuleProgress;
 }
 
-function saveProgress(state: ProgressState): void {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-  } catch {
-    // quota indisponível — progresso simplesmente não persiste nesta sessão
+export async function fetchRemoteProgress(userId: string): Promise<ProgressState> {
+  const { data, error } = await supabase
+    .from("espanhol_progress")
+    .select("module_id, progress")
+    .eq("learner_id", userId);
+
+  if (error || !data) return {};
+
+  const state: ProgressState = {};
+  for (const row of data as ProgressRow[]) {
+    state[row.module_id] = row.progress;
   }
+  return state;
 }
 
-export function markSectionComplete(
+export async function upsertRemoteProgress(
+  userId: string,
   moduleId: string,
-  section: SectionKey,
-): ProgressState {
-  const state = loadProgress();
-  const moduleProgress = state[moduleId] ?? {};
-  const next: ProgressState = {
-    ...state,
-    [moduleId]: { ...moduleProgress, [section]: true },
-  };
-  saveProgress(next);
-  return next;
+  moduleProgress: ModuleProgress,
+): Promise<void> {
+  try {
+    await supabase.from("espanhol_progress").upsert({
+      learner_id: userId,
+      module_id: moduleId,
+      progress: moduleProgress,
+      atualizado_em: new Date().toISOString(),
+    });
+  } catch {
+    // fire-and-forget — falha de rede não deve travar a UI
+  }
+}
+
+export async function clearRemoteProgress(userId: string): Promise<void> {
+  try {
+    await supabase.from("espanhol_progress").delete().eq("learner_id", userId);
+  } catch {
+    // fire-and-forget
+  }
 }
 
 export function computeModulePercent(
@@ -74,14 +88,5 @@ export function loadLastVisited(): LastVisited | null {
     return raw ? (JSON.parse(raw) as LastVisited) : null;
   } catch {
     return null;
-  }
-}
-
-export function clearProgress(): void {
-  try {
-    localStorage.removeItem(STORAGE_KEY);
-    localStorage.removeItem(LAST_VISITED_KEY);
-  } catch {
-    // quota/acesso indisponível — nada a fazer
   }
 }

@@ -8,6 +8,7 @@ import { VocabCard } from "../components/VocabCard";
 import { FillBlankExerciseView } from "../components/exercises/FillBlankExerciseView";
 import { MultipleChoiceExerciseView } from "../components/exercises/MultipleChoiceExerciseView";
 import { getSongById, type Song } from "../data/songs";
+import { useAuth } from "../hooks/useAuth";
 import { useProgress } from "../hooks/useProgress";
 import type { SectionKey } from "../lib/progress";
 import { saveLastVisited } from "../lib/progress";
@@ -28,7 +29,8 @@ export function SongModule() {
   const { id } = useParams<{ id: string }>();
   const [searchParams] = useSearchParams();
   const song = id ? getSongById(id) : undefined;
-  const { progress, complete } = useProgress();
+  const { user } = useAuth();
+  const { progress, complete } = useProgress(user?.id);
   const initialTab = searchParams.get("aba");
   const [activeTab, setActiveTab] = useState<SectionKey>(
     isSectionKey(initialTab) ? initialTab : "vocabulario",

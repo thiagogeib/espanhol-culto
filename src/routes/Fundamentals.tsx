@@ -4,13 +4,15 @@ import { MultipleChoiceExerciseView } from "../components/exercises/MultipleChoi
 import { SoundRuleCard } from "../components/SoundRuleCard";
 import { SpeechRateToggle } from "../components/SpeechRateToggle";
 import { fundamentalsQuiz, soundRules } from "../data/curriculum";
+import { useAuth } from "../hooks/useAuth";
 import { useProgress } from "../hooks/useProgress";
 import { saveLastVisited } from "../lib/progress";
 
 const MODULE_ID = "fundamentos";
 
 export function Fundamentals() {
-  const { progress, complete } = useProgress();
+  const { user } = useAuth();
+  const { progress, complete } = useProgress(user?.id);
   const [answeredCount, setAnsweredCount] = useState(0);
   const [correctCount, setCorrectCount] = useState(0);
   const [attempt, setAttempt] = useState(0);

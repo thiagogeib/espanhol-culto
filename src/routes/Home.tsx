@@ -2,8 +2,9 @@ import { Link } from "react-router-dom";
 import { ProgressBar } from "../components/ProgressBar";
 import { curriculumOrder, TOTAL_SECTIONS_FUNDAMENTALS } from "../data/curriculum";
 import { TOTAL_SECTIONS_PER_SONG } from "../data/songs";
+import { useAuth } from "../hooks/useAuth";
 import { useProgress } from "../hooks/useProgress";
-import { clearProgress, loadLastVisited } from "../lib/progress";
+import { loadLastVisited } from "../lib/progress";
 
 const SONG_MODULE_COUNT = curriculumOrder.filter(
   (entry) => entry.tipo === "musica",
@@ -21,7 +22,8 @@ function moduleLinkFor(moduleId: string, tipo: "fundamentos" | "musica", section
 }
 
 export function Home() {
-  const { progress, percentFor } = useProgress();
+  const { user } = useAuth();
+  const { progress, percentFor, reset } = useProgress(user?.id);
   const lastVisited = loadLastVisited();
   const lastEntry = lastVisited
     ? curriculumOrder.find((entry) => entry.moduleId === lastVisited.moduleId)
@@ -41,13 +43,12 @@ export function Home() {
       ? Math.round((sectionsDone / TOTAL_SECTIONS_OVERALL) * 100)
       : 0;
 
-  function handleResetProgress() {
+  async function handleResetProgress() {
     const confirmed = window.confirm(
-      "Isso vai apagar todo o progresso salvo neste navegador. Tem certeza?",
+      "Isso vai apagar todo o seu progresso salvo. Tem certeza?",
     );
     if (!confirmed) return;
-    clearProgress();
-    window.location.reload();
+    await reset();
   }
 
   return (
@@ -105,7 +106,7 @@ export function Home() {
         })}
       </section>
 
-      <button type="button" className="reset-progress-btn" onClick={handleResetProgress}>
+      <button type="button" className="reset-progress-btn" onClick={() => void handleResetProgress()}>
         Reiniciar progresso
       </button>
     </div>

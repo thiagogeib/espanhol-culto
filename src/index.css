@@ -95,10 +95,170 @@ a {
   color: var(--color-primary-dark);
 }
 
+.app-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
 .app-header__back {
   text-decoration: none;
   color: var(--color-text-muted);
   font-size: 14px;
+}
+
+.app-header__signout {
+  border: none;
+  background: none;
+  color: var(--color-text-muted);
+  font-size: 14px;
+  text-decoration: underline;
+}
+
+.auth-loading {
+  padding: 40px;
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+/* Auth pages (login/cadastro) */
+.auth-page {
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 380px;
+  padding: 28px 24px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  text-align: center;
+}
+
+.auth-card h1 {
+  font-size: 22px;
+}
+
+.auth-card__subtitle {
+  color: var(--color-text-muted);
+  margin-bottom: 20px;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  text-align: left;
+}
+
+.auth-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+.auth-form__field input {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-size: 15px;
+}
+
+.auth-form__error {
+  color: var(--color-error);
+  font-size: 14px;
+}
+
+.auth-form__submit {
+  margin-top: 4px;
+  padding: 12px;
+  border: none;
+  border-radius: 999px;
+  background: var(--color-primary);
+  color: white;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.auth-form__submit:disabled {
+  opacity: 0.7;
+}
+
+.auth-card__footer {
+  margin-top: 18px;
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+/* Admin dashboard */
+.admin-dashboard__error {
+  color: var(--color-error);
+}
+
+.admin-dashboard__list {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.learner-card {
+  padding: 16px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+}
+
+.learner-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 12px;
+}
+
+.learner-card__nome {
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.learner-card__acesso {
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.learner-card__modules {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.learner-card__module {
+  display: grid;
+  grid-template-columns: 1fr 2fr auto;
+  align-items: center;
+  gap: 10px;
+  font-size: 13.5px;
+}
+
+.learner-card__module-titulo {
+  color: var(--color-text-muted);
+}
+
+.learner-card__module-percent {
+  color: var(--color-text-muted);
+  text-align: right;
 }
 
 .app-main {

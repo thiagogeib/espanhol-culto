@@ -137,4 +137,6 @@ export const curriculumOrder: CurriculumEntry[] = [
   { moduleId: "poder-de-la-sangre", ordem: 3, tipo: "musica", titulo: "Poder de la Sangre", icone: "🩸" },
   { moduleId: "marcas", ordem: 4, tipo: "musica", titulo: "Marcas", icone: "💔" },
   { moduleId: "iglesia-de-tablas", ordem: 5, tipo: "musica", titulo: "Pequeña Iglesia de Tablas Viejas", icone: "⛪" },
+  { moduleId: "llorando-o-sonriendo", ordem: 6, tipo: "musica", titulo: "Llorando o Sonriendo", icone: "🌦️" },
+  { moduleId: "vuelvo-al-primer-amor", ordem: 7, tipo: "musica", titulo: "Vuelvo al Primer Amor", icone: "🕯️" },
 ];
